@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  socks5:
+    image: serjs/go-socks5-proxy
+    container_name: securex-socks5
+    restart: unless-stopped
+    ports:
+      - "1080:1080"
+    environment:
+      - REQUIRE_AUTH=false
+
+  securex-node:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: securex-node
+    restart: unless-stopped
+    env_file:
+      - ../.env
+    depends_on:
+      - socks5
