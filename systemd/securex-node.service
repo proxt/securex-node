@@ -1,0 +1,18 @@
+[Unit]
+Description=SecureX node service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=securex
+Group=securex
+WorkingDirectory=/opt/securex-node
+EnvironmentFile=/etc/securex-node.env
+ExecStart=/usr/bin/node /opt/securex-node/src/index.js
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
